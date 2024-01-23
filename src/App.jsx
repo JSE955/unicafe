@@ -1,34 +1,59 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const Header = ({text}) => {
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>{text}</h1>
     </>
+  )
+}
+
+const Button = ({handleClick, text}) => {
+  return (
+    <>
+      <button onClick={handleClick}>{text}</button>
+    </>
+  )
+}
+
+const Stat = ({name, value}) => {
+  return (
+    <>
+      <div>{name} {value}</div>
+    </>
+  )
+}
+
+const App = () => {
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  const handleGoodClick = () => {
+  setGood(good + 1)
+  }
+
+  const handleNeutralClick = () => {
+  setNeutral(neutral + 1)
+  }
+
+  const handleBadClick = () => {
+  setBad(bad + 1)
+  }
+
+  return (
+    <div>
+      <Header text={'give feedback'} />
+      <Button handleClick={handleGoodClick} text={'good'} />
+      <Button handleClick={handleNeutralClick} text={'neutral'} />
+      <Button handleClick={handleBadClick} text={'bad'} />
+      
+      <Header text={'statistics'} />
+      <Stat name={'good'} value={good} />
+      <Stat name={'neutral'} value={neutral} />
+      <Stat name={'bad'} value={bad} />
+    </div>
   )
 }
 
